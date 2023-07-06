@@ -98,7 +98,11 @@ export default function Home() {
               )}
             />
             <Button className="w-full">Proceed</Button>
-            <Separator />
+            <div className="flex items-center w-full">
+              <Separator className="flex-1" />
+              <p className="mx-4">or use a provider</p>
+              <Separator className="flex-1" />
+            </div>
             <Button
               type="button"
               variant="outline"
