@@ -13,7 +13,7 @@ what is BlogIt? oh! sorry I forget to introduce you to it, it's simply a bloggin
 - Tailwind
 - Validation using **Zod**
 - Written in **TypeScript**
-- Deploy on @vercel
+- Deploy on @vercel.org
 
 ## Roadmap
 
