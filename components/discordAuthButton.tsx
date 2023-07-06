@@ -9,9 +9,7 @@ interface DiscordAuthButtonProps {}
 export default function DiscordAuthButton({}: DiscordAuthButtonProps) {
   const [loading, setLoading] = useState<boolean>(false);
   function onDiscordClick() {
-    signIn("discord", {
-      callbackUrl: "/home",
-    });
+    signIn("discord", {});
     setLoading(true);
   }
   return (

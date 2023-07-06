@@ -42,7 +42,6 @@ export default function Home() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     signIn("email", {
       email: values.email,
-      callbackUrl: "/home",
     });
     setLoading(true);
   }
