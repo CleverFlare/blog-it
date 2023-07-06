@@ -18,6 +18,10 @@ import * as z from "zod";
 import { Separator } from "@/components/ui/separator";
 import { FaDiscord, FaGoogle } from "react-icons/fa6";
 import { signIn } from "next-auth/react";
+import GoogleAuthButton from "@/components/googleAuthButton";
+import DiscordAuthButton from "@/components/discordAuthButton";
+import { useState } from "react";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const formSchema = z.object({
   email: z
@@ -27,6 +31,7 @@ const formSchema = z.object({
 });
 
 export default function Home() {
+  const [loading, setLoading] = useState<boolean>(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -39,20 +44,8 @@ export default function Home() {
       email: values.email,
       callbackUrl: "/home",
     });
+    setLoading(true);
   }
-
-  function onGoogleClick() {
-    signIn("google", {
-      callbackUrl: "/home",
-    });
-  }
-
-  function onFacebookClick() {
-    signIn("discord", {
-      callbackUrl: "/home",
-    });
-  }
-
   return (
     <main className="flex min-h-screen flex-col items-center justify-center">
       <Container className="flex flex-col items-center justify-center">
@@ -97,30 +90,21 @@ export default function Home() {
                 </FormItem>
               )}
             />
-            <Button className="w-full">Proceed</Button>
+            <Button className="w-full" disabled={loading}>
+              {loading && (
+                <AiOutlineLoading3Quarters className="me-2 w-4 h-4 animate-spin" />
+              )}
+              Proceed
+            </Button>
             <div className="flex items-center w-full">
               <Separator className="flex-1" />
-              <p className="mx-4">or use a provider</p>
+              <p className="mx-4 text-sm font-semibold text-muted-foreground">
+                or use a provider
+              </p>
               <Separator className="flex-1" />
             </div>
-            <Button
-              type="button"
-              variant="outline"
-              className="w-full"
-              onClick={onGoogleClick}
-            >
-              <FaGoogle className="me-2 w-4 h-4" />
-              Google
-            </Button>
-            <Button
-              type="button"
-              variant="outline"
-              className="w-full"
-              onClick={onFacebookClick}
-            >
-              <FaDiscord className="me-2 w-4 h-4" />
-              Discord
-            </Button>
+            <GoogleAuthButton />
+            <DiscordAuthButton />
           </form>
         </Form>
       </Container>

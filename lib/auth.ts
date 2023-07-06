@@ -52,6 +52,11 @@ export const authConfig: NextAuthOptions = {
     }),
   ],
   secret: process.env.SECRET,
+  pages: {
+    signIn: "/",
+    error: "/",
+    signOut: "/",
+  },
 };
 
 function html(params: { url: string; host: string; theme: any }) {
