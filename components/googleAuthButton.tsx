@@ -9,7 +9,9 @@ interface GoogleAuthButtonProps {}
 export default function GoogleAuthButton({}: GoogleAuthButtonProps) {
   const [loading, setLoading] = useState<boolean>(false);
   function onGoogleClick() {
-    signIn("google", {});
+    signIn("google", {
+      callbackUrl: "/home",
+    });
     setLoading(true);
   }
   return (
