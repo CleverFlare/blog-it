@@ -16,7 +16,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { Separator } from "@/components/ui/separator";
-import { FaFacebook, FaGoogle } from "react-icons/fa6";
+import { FaDiscord, FaGoogle } from "react-icons/fa6";
+import { signIn } from "next-auth/react";
 
 const formSchema = z.object({
   email: z
@@ -34,8 +35,24 @@ export default function Home() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
+    signIn("email", {
+      email: values.email,
+      callbackUrl: "/home",
+    });
   }
+
+  function onGoogleClick() {
+    signIn("google", {
+      callbackUrl: "/home",
+    });
+  }
+
+  function onFacebookClick() {
+    signIn("discord", {
+      callbackUrl: "/home",
+    });
+  }
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-center">
       <Container className="flex flex-col items-center justify-center">
@@ -51,9 +68,9 @@ export default function Home() {
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               className="h-6 w-6"
             >
               <path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"></path>
@@ -82,13 +99,23 @@ export default function Home() {
             />
             <Button className="w-full">Proceed</Button>
             <Separator />
-            <Button type="button" variant="outline" className="w-full">
-              <FaGoogle className="me-2" />
+            <Button
+              type="button"
+              variant="outline"
+              className="w-full"
+              onClick={onGoogleClick}
+            >
+              <FaGoogle className="me-2 w-4 h-4" />
               Google
             </Button>
-            <Button type="button" variant="outline" className="w-full">
-              <FaFacebook className="me-2" />
-              Facebook
+            <Button
+              type="button"
+              variant="outline"
+              className="w-full"
+              onClick={onFacebookClick}
+            >
+              <FaDiscord className="me-2 w-4 h-4" />
+              Discord
             </Button>
           </form>
         </Form>
