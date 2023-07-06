@@ -84,7 +84,7 @@ export default function Home() {
                     <Input placeholder="example@email.com" {...field} />
                   </FormControl>
                   <FormDescription>
-                    This is the email you'll use to login
+                    This is the email you&apos;ll use to login
                   </FormDescription>
                   <FormMessage />
                 </FormItem>

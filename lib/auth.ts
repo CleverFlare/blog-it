@@ -116,12 +116,3 @@ export async function loginIsRequiredServer() {
   const session = await getServerSession(authConfig);
   if (!session) return redirect("/");
 }
-
-export async function loginIsRequiredClient() {
-  // return if this function is not invoked on the client
-  if (typeof window === "undefined") return;
-
-  const session = useSession();
-  const router = useRouter();
-  if (!session) router.push("/");
-}
