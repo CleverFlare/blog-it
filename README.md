@@ -21,3 +21,7 @@ what is BlogIt? oh! sorry I forget to introduce you to it, it's simply a bloggin
 - [ ] Fix the issue with github auth
 - [ ] Add block-based rich text editor using EditorJS
 - [ ] Add markdown support
+
+## Bug fix
+
+- ~Replace the email provider auth with the regular credentials auth~

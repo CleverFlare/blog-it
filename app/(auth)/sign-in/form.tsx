@@ -53,7 +53,7 @@ export default function Form({}: FormProps) {
     signIn("credentials", {
       email: values.email,
       password: values.password,
-      callbackUrl: `${window.location.origin}/`,
+      callbackUrl: "/",
     });
   }
 
