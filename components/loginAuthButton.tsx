@@ -1,6 +1,4 @@
-import { FaGoogle } from "react-icons/fa6";
 import { Button } from "./ui/button";
-import { signIn } from "next-auth/react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useState } from "react";
 
