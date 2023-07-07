@@ -49,12 +49,12 @@ export default function Form({}: FormProps) {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
+    setLoading(true);
     signIn("credentials", {
       email: values.email,
       password: values.password,
       callbackUrl: `${window.location.origin}/`,
     });
-    setLoading(true);
   }
 
   return (

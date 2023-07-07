@@ -5,7 +5,17 @@ import bcrypt from "bcrypt";
 export async function POST(req: NextRequest, res: NextResponse) {
   const { firstName, lastName, email, password } = await req.json();
 
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const doesUserExit = await db.user.findUnique({ where: { email } });
+
+  if (doesUserExit)
+    return NextResponse.json(
+      { message: "User already exists" },
+      { status: 400 }
+    );
+
+  const saltPassword = await bcrypt.genSalt(10);
+
+  const hashedPassword = await bcrypt.hash(password, saltPassword);
 
   const user = await db.user.create({
     data: {

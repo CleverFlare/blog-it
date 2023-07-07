@@ -22,7 +22,7 @@ export const authConfig: NextAuthOptions = {
       credentials: {
         email: {
           label: "email",
-          type: "text",
+          type: "email",
           placeholder: "name@example.com",
           required: true,
         },
@@ -41,21 +41,14 @@ export const authConfig: NextAuthOptions = {
           },
         });
 
-        console.log("hashedPassword: ", user);
-
         if (!user) return null;
 
-        const hashedPassword =
-          (await bcrypt.hash(credentials?.password as string, 10)) || "";
-
         const isCorrectPassword = await bcrypt.compare(
-          user.password,
-          hashedPassword
+          credentials?.password || "",
+          user?.password || ""
         );
 
-        console.log("hashedPassword: ", isCorrectPassword);
-
-        // if (!isCorrectPassword) return null;
+        if (!isCorrectPassword) return null;
 
         return user;
       },
@@ -72,6 +65,10 @@ export const authConfig: NextAuthOptions = {
   ],
   pages: {
     signIn: "/sign-in",
+  },
+  session: {
+    // Set to jwt in order to CredentialsProvider works properly
+    strategy: "jwt",
   },
 };
 

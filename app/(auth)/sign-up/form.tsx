@@ -21,6 +21,7 @@ import { useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { db } from "@/lib/db";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 interface FormProps {}
 
@@ -58,6 +59,7 @@ const formSchema = z
 
 export default function Form({}: FormProps) {
   const [loading, setLoading] = useState<boolean>(false);
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -78,7 +80,9 @@ export default function Form({}: FormProps) {
       password: values.password,
     });
 
-    console.log(res.data);
+    if (res.status > 299 || res.status < 200) throw Error(res.data.message);
+
+    router.push("/sign-in");
   }
 
   return (
