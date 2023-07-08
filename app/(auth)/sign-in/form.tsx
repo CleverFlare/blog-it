@@ -67,8 +67,7 @@ export default function Form({}: FormProps) {
             description: "Email or password are not correct",
             variant: "destructive",
           });
-
-        router.push("/");
+        else router.push("/");
       })
       .finally(() => {
         setLoading(false);
