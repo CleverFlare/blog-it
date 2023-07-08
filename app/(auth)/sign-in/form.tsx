@@ -130,7 +130,7 @@ export default function Form({}: FormProps) {
           )}
         />
         <p className="text-sm text-muted-foreground">
-          You don't already have an account?{" "}
+          You don&apos;t already have an account?{" "}
           <Link
             href="/sign-up"
             className="text-blue-500 font-medium hover:underline"
