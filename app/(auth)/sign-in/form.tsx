@@ -19,6 +19,9 @@ import GoogleAuthButton from "@/components/googleAuthButton";
 import DiscordAuthButton from "@/components/discordAuthButton";
 import { useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import Link from "next/link";
+import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
 
 interface FormProps {}
 
@@ -39,6 +42,8 @@ const formSchema = z.object({
 });
 
 export default function Form({}: FormProps) {
+  const { toast } = useToast();
+  const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -53,8 +58,21 @@ export default function Form({}: FormProps) {
     signIn("credentials", {
       email: values.email,
       password: values.password,
-      callbackUrl: "/",
-    });
+      redirect: false,
+    })
+      .then((res) => {
+        if (res?.error === "CredentialsSignin")
+          toast({
+            title: "Credentials Error",
+            description: "Email or password are not correct",
+            variant: "destructive",
+          });
+
+        router.push("/");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }
 
   return (
@@ -111,6 +129,15 @@ export default function Form({}: FormProps) {
             </FormItem>
           )}
         />
+        <p className="text-sm text-muted-foreground">
+          You don't already have an account?{" "}
+          <Link
+            href="/sign-up"
+            className="text-blue-500 font-medium hover:underline"
+          >
+            Sign Up
+          </Link>
+        </p>
         <Button className="w-full" disabled={loading}>
           {loading && (
             <AiOutlineLoading3Quarters className="me-2 w-4 h-4 animate-spin" />

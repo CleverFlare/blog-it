@@ -22,6 +22,7 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { db } from "@/lib/db";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface FormProps {}
 
@@ -82,7 +83,13 @@ export default function Form({}: FormProps) {
 
     if (res.status > 299 || res.status < 200) throw Error(res.data.message);
 
-    router.push("/sign-in");
+    signIn("credentials", {
+      email: values.email,
+      password: values.password,
+      redirect: false,
+    }).then(() => {
+      router.push("/");
+    });
   }
 
   return (
@@ -184,6 +191,15 @@ export default function Form({}: FormProps) {
             </FormItem>
           )}
         />
+        <p className="text-sm text-muted-foreground">
+          You already have an account?{" "}
+          <Link
+            href="/sign-in"
+            className="text-blue-500 font-medium hover:underline"
+          >
+            Sign In
+          </Link>
+        </p>
         <Button className="w-full" disabled={loading}>
           {loading && (
             <AiOutlineLoading3Quarters className="me-2 w-4 h-4 animate-spin" />
