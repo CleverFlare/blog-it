@@ -128,7 +128,7 @@ export default function Form({}: FormProps) {
               <FormItem>
                 <FormLabel aria-required>First Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="first name..." {...field} />
+                  <Input placeholder="first name..." autoFocus {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -141,7 +141,7 @@ export default function Form({}: FormProps) {
               <FormItem>
                 <FormLabel aria-required>Last Name</FormLabel>
                 <FormControl>
-                  <Input placeholder="last name..." autoFocus {...field} />
+                  <Input placeholder="last name..." {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -155,7 +155,7 @@ export default function Form({}: FormProps) {
             <FormItem>
               <FormLabel aria-required>Email</FormLabel>
               <FormControl>
-                <Input placeholder="example@email.com" autoFocus {...field} />
+                <Input placeholder="example@email.com" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
