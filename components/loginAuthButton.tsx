@@ -17,7 +17,7 @@ export default function LoginAuthButton({}: LoginAuthButtonProps) {
       disabled={loading}
     >
       {loading && (
-        <AiOutlineLoading3Quarters className="me-2 w-4 h-4 animate-spin" />
+        <AiOutlineLoading3Quarters className="w-4 h-4 animate-spin me-2" />
       )}
       Proceed
     </Button>

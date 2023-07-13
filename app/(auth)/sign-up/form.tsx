@@ -88,6 +88,7 @@ export default function Form({}: FormProps) {
       password: values.password,
       redirect: false,
     }).then(() => {
+      setLoading(false);
       router.push("/");
     });
   }
@@ -108,15 +109,15 @@ export default function Form({}: FormProps) {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="h-6 w-6"
+          className="w-6 h-6"
         >
           <path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"></path>
         </svg>
         <div>
-          <h1 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors">
+          <h1 className="pb-2 text-3xl font-semibold tracking-tight transition-colors scroll-m-20">
             Welcome to BlogIt
           </h1>
-          <p className="text-muted-foreground text-sm">
+          <p className="text-sm text-muted-foreground">
             fill in the following fields to register
           </p>
         </div>
@@ -195,14 +196,14 @@ export default function Form({}: FormProps) {
           You already have an account?{" "}
           <Link
             href="/sign-in"
-            className="text-blue-500 font-medium hover:underline"
+            className="font-medium text-blue-500 hover:underline"
           >
             Sign In
           </Link>
         </p>
         <Button className="w-full" disabled={loading}>
           {loading && (
-            <AiOutlineLoading3Quarters className="me-2 w-4 h-4 animate-spin" />
+            <AiOutlineLoading3Quarters className="w-4 h-4 animate-spin me-2" />
           )}
           Register
         </Button>

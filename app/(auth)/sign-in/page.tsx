@@ -8,8 +8,8 @@ export default async function Page() {
   const session = await getServerSession(authConfig);
   if (session) return redirect("/");
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center">
-      <Container className="flex flex-col items-center justify-center">
+    <main className="flex flex-col justify-center items-center min-h-screen">
+      <Container className="flex flex-col justify-center items-center">
         <Form />
       </Container>
     </main>

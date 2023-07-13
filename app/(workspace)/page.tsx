@@ -7,7 +7,7 @@ export default async function Page() {
   const session = await getServerSession(authConfig);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-1">
+    <main className="flex flex-col gap-1 justify-center items-center h-full">
       <img
         src={
           session?.user?.image ||
@@ -17,7 +17,7 @@ export default async function Page() {
         className="rounded-full mb-4 w-[100px] h-[100px]"
       />
       <p>{session?.user?.name}</p>
-      <p className="text-sm text-muted-foreground mb-4">
+      <p className="mb-4 text-sm text-muted-foreground">
         {session?.user?.email}
       </p>
       <SignOutButton />

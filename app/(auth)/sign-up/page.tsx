@@ -3,7 +3,7 @@ import Form from "./form";
 
 export default function Page() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center">
+    <main className="flex flex-col justify-center items-center min-h-screen">
       <Container>
         <Form />
       </Container>

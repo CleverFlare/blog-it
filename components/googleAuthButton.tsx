@@ -23,9 +23,9 @@ export default function GoogleAuthButton({}: GoogleAuthButtonProps) {
       disabled={loading}
     >
       {loading && (
-        <AiOutlineLoading3Quarters className="me-2 w-4 h-4 animate-spin" />
+        <AiOutlineLoading3Quarters className="w-4 h-4 animate-spin me-2" />
       )}
-      {!loading && <FaGoogle className="me-2 w-4 h-4" />}
+      {!loading && <FaGoogle className="w-4 h-4 me-2" />}
       Google
     </Button>
   );

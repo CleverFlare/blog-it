@@ -22,6 +22,7 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import Link from "next/link";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
+import Logo from "@/components/logo";
 
 interface FormProps {}
 
@@ -80,25 +81,12 @@ export default function Form({}: FormProps) {
         onSubmit={form.handleSubmit(onSubmit)}
         className="flex flex-col gap-y-4 max-w-[350px] w-screen"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="h-6 w-6"
-        >
-          <path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z"></path>
-        </svg>
+        <Logo />
         <div>
-          <h1 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight transition-colors">
+          <h1 className="pb-2 text-3xl font-semibold tracking-tight transition-colors scroll-m-20">
             Welcome to BlogIt
           </h1>
-          <p className="text-muted-foreground text-sm">
+          <p className="text-sm text-muted-foreground">
             enter your email to login to your account
           </p>
         </div>
@@ -132,14 +120,14 @@ export default function Form({}: FormProps) {
           You don&apos;t already have an account?{" "}
           <Link
             href="/sign-up"
-            className="text-blue-500 font-medium hover:underline"
+            className="font-medium text-blue-500 hover:underline"
           >
             Sign Up
           </Link>
         </p>
         <Button className="w-full" disabled={loading}>
           {loading && (
-            <AiOutlineLoading3Quarters className="me-2 w-4 h-4 animate-spin" />
+            <AiOutlineLoading3Quarters className="w-4 h-4 animate-spin me-2" />
           )}
           Proceed
         </Button>
