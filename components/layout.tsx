@@ -16,7 +16,11 @@ export default function Layout({}: LayoutProps) {
   const session = useSession();
   return (
     <main className="flex h-screen bg-slate-100">
-      <Sidebar open={sidebarOpen} smallViewport={smallViewport} />
+      <Sidebar
+        open={sidebarOpen}
+        smallViewport={smallViewport}
+        onClose={() => setSidebarOpen(false)}
+      />
       <div className="flex flex-col flex-1">
         <div className="flex justify-between items-center px-4 w-full bg-white h-[60px]">
           <div>

@@ -99,48 +99,71 @@ export function SidebarTab({
 
 interface SidebarProps {
   open?: boolean;
+  onClose?: () => any;
   smallViewport?: boolean;
 }
 
-export default function Sidebar({ open, smallViewport }: SidebarProps) {
+export default function Sidebar({
+  open,
+  onClose,
+  smallViewport,
+}: SidebarProps) {
   if (smallViewport === undefined) return;
   return (
-    <motion.div
-      className={cn(
-        "box-border flex flex-col gap-2 items-center p-3 h-screen bg-white before:absolute before:-left-full before:top-0 before:w-full before:h-full before:bg-white",
-        smallViewport ? "fixed shadow-2xl w-[250px]" : "w-[70px]"
+    <>
+      <motion.div
+        initial={false}
+        className={cn(
+          "box-border flex z-20 flex-col gap-2 items-center p-3 h-screen bg-white before:absolute before:-left-full before:top-0 before:w-full before:h-full before:bg-white",
+          smallViewport ? "fixed shadow-2xl w-[250px]" : "w-[70px]"
+        )}
+        animate={{
+          left: smallViewport ? (open ? "0%" : "-100%") : "0%",
+        }}
+        transition={{
+          duration: 0.5,
+          type: "spring",
+        }}
+      >
+        <div className="flex justify-center items-center mb-4 aspect-square">
+          <Logo />
+        </div>
+        <SidebarTab icon={<FaHouse />} collapse={smallViewport} href="/">
+          Home
+        </SidebarTab>
+        <SidebarTab
+          icon={<FaHeart />}
+          collapse={smallViewport}
+          href="/followed"
+        >
+          Followed
+        </SidebarTab>
+        <SidebarTab
+          icon={<FaBoxArchive />}
+          collapse={smallViewport}
+          href="/my-blogs"
+        >
+          My Blogs
+        </SidebarTab>
+        <SidebarTab
+          icon={<FaBookmark />}
+          collapse={smallViewport}
+          href="/bookmarks"
+        >
+          Bookmarks
+        </SidebarTab>
+      </motion.div>
+      {smallViewport && (
+        <div
+          className={cn(
+            "fixed z-10 w-screen h-screen transition-all bg-black/10",
+            open
+              ? "pointer-events-auto opacity-1"
+              : "opacity-0 pointer-events-none"
+          )}
+          onClick={onClose}
+        />
       )}
-      animate={{
-        left: smallViewport ? (open ? "-100%" : "0%") : "0%",
-      }}
-      transition={{
-        duration: 0.5,
-        type: "spring",
-      }}
-    >
-      <div className="flex justify-center items-center mb-4 aspect-square">
-        <Logo />
-      </div>
-      <SidebarTab icon={<FaHouse />} collapse={smallViewport} href="/">
-        Home
-      </SidebarTab>
-      <SidebarTab icon={<FaHeart />} collapse={smallViewport} href="/followed">
-        Followed
-      </SidebarTab>
-      <SidebarTab
-        icon={<FaBoxArchive />}
-        collapse={smallViewport}
-        href="/my-blogs"
-      >
-        My Blogs
-      </SidebarTab>
-      <SidebarTab
-        icon={<FaBookmark />}
-        collapse={smallViewport}
-        href="/bookmarks"
-      >
-        Bookmarks
-      </SidebarTab>
-    </motion.div>
+    </>
   );
 }
