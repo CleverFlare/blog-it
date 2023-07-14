@@ -99,10 +99,10 @@ export function SidebarTab({
 
 interface SidebarProps {
   open?: boolean;
+  smallViewport?: boolean;
 }
 
-export default function Sidebar({ open }: SidebarProps) {
-  const smallViewport = useMediaQuery("(max-width: 768px)");
+export default function Sidebar({ open, smallViewport }: SidebarProps) {
   if (smallViewport === undefined) return;
   return (
     <motion.div
