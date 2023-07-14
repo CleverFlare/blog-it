@@ -132,7 +132,7 @@ export default function Sidebar({ open }: SidebarProps) {
         collapse={smallViewport}
         href="/my-blogs"
       >
-        Your Blogs
+        My Blogs
       </SidebarTab>
       <SidebarTab
         icon={<FaBookmark />}
