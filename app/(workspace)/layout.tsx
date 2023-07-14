@@ -8,7 +8,7 @@ export default function RootLayout({
 }) {
   return (
     <AuthSessionProvider>
-      <Layout />
+      <Layout>{children}</Layout>
     </AuthSessionProvider>
   );
 }

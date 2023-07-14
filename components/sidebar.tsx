@@ -14,6 +14,9 @@ import { useMediaQuery } from "@mantine/hooks";
 import { FaHouse, FaHeart, FaBoxArchive, FaBookmark } from "react-icons/fa6";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { Button } from "./ui/button";
+import { GoSignOut } from "react-icons/go";
+import { signOut } from "next-auth/react";
 
 const sidebarTabVariants = cva(
   "flex relative items-center box-border p-2 h-10 rounded-md aspect-square gap-6",
@@ -97,6 +100,46 @@ export function SidebarTab({
     );
 }
 
+interface SignOutButtonProps extends ComponentProps<"button"> {
+  collapse?: boolean;
+}
+
+export function SignOutButton({ collapse }: SignOutButtonProps) {
+  function handleSignout() {
+    signOut();
+  }
+  if (!collapse)
+    return (
+      <TooltipProvider>
+        <Tooltip delayDuration={100}>
+          <TooltipTrigger asChild>
+            <Button
+              variant="outline"
+              size="icon"
+              className="font-bold"
+              onClick={handleSignout}
+            >
+              <GoSignOut />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent side="right">Sign Out</TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+    );
+  else
+    return (
+      <Button
+        variant="outline"
+        size="default"
+        className="gap-4 w-full font-bold"
+        onClick={handleSignout}
+      >
+        <GoSignOut />
+        Sign Out
+      </Button>
+    );
+}
+
 interface SidebarProps {
   open?: boolean;
   onClose?: () => any;
@@ -152,6 +195,9 @@ export default function Sidebar({
         >
           Bookmarks
         </SidebarTab>
+        <div className="flex flex-1 items-end w-full">
+          <SignOutButton collapse={smallViewport} />
+        </div>
       </motion.div>
       {smallViewport && (
         <div

@@ -8,9 +8,11 @@ import { SessionProvider, useSession } from "next-auth/react";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "./ui/hover-card";
 import { useMediaQuery } from "@mantine/hooks";
 
-interface LayoutProps {}
+interface LayoutProps {
+  children?: any;
+}
 
-export default function Layout({}: LayoutProps) {
+export default function Layout({ children }: LayoutProps) {
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
   const smallViewport = useMediaQuery("(max-width: 768px)");
   const session = useSession();
@@ -67,6 +69,7 @@ export default function Layout({}: LayoutProps) {
             </HoverCardContent>
           </HoverCard>
         </div>
+        <div>{children}</div>
       </div>
     </main>
   );
