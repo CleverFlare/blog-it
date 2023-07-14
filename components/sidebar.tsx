@@ -12,9 +12,11 @@ import {
 import { motion } from "framer-motion";
 import { useMediaQuery } from "@mantine/hooks";
 import { FaHouse, FaHeart, FaBoxArchive, FaBookmark } from "react-icons/fa6";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 
 const sidebarTabVariants = cva(
-  "flex relative items-center box-border p-2 h-10 rounded-md aspect-square gap-1",
+  "flex relative items-center box-border p-2 h-10 rounded-md aspect-square gap-6",
   {
     variants: {
       active: {
@@ -40,6 +42,7 @@ interface SidebarTabProps
   collapse?: boolean;
   icon?: any;
   children: string;
+  href: string;
 }
 
 export function SidebarTab({
@@ -47,36 +50,46 @@ export function SidebarTab({
   icon,
   children,
   collapse,
-  active,
+  href,
   ...props
 }: SidebarTabProps) {
+  const pathname = usePathname();
   if (collapse)
     return (
-      <button
-        className={cn(
-          sidebarTabVariants({
-            className,
-            size: collapse ? "fill" : "consistent",
-            active,
-          })
-        )}
-        {...props}
-      >
-        {icon}
-        {children}
-      </button>
+      <Link href={href} className="w-full">
+        <button
+          className={cn(
+            sidebarTabVariants({
+              className,
+              active: pathname === href ? true : false,
+              size: "fill",
+            })
+          )}
+          {...props}
+        >
+          {icon}
+          {children}
+        </button>
+      </Link>
     );
   else
     return (
       <TooltipProvider>
         <Tooltip delayDuration={100}>
           <TooltipTrigger asChild>
-            <button
-              className={cn(sidebarTabVariants({ className, active }))}
-              {...props}
-            >
-              {icon}
-            </button>
+            <Link href={href}>
+              <button
+                className={cn(
+                  sidebarTabVariants({
+                    className,
+                    active: pathname === href ? true : false,
+                  })
+                )}
+                {...props}
+              >
+                {icon}
+              </button>
+            </Link>
           </TooltipTrigger>
           <TooltipContent side="right">{children}</TooltipContent>
         </Tooltip>
@@ -95,7 +108,7 @@ export default function Sidebar({ open }: SidebarProps) {
     <motion.div
       className={cn(
         "box-border flex flex-col gap-2 items-center p-3 h-screen bg-white before:absolute before:-left-full before:top-0 before:w-full before:h-full before:bg-white",
-        smallViewport ? "fixed w-[250px]" : "w-[70px]"
+        smallViewport ? "fixed shadow-2xl w-[250px]" : "w-[70px]"
       )}
       animate={{
         left: smallViewport ? (open ? "-100%" : "0%") : "0%",
@@ -108,17 +121,25 @@ export default function Sidebar({ open }: SidebarProps) {
       <div className="flex justify-center items-center mb-4 aspect-square">
         <Logo />
       </div>
-      <SidebarTab active icon={<FaHouse />} collapse={smallViewport}>
+      <SidebarTab icon={<FaHouse />} collapse={smallViewport} href="/">
         Home
       </SidebarTab>
-      <SidebarTab icon={<FaHeart />} collapse={smallViewport}>
+      <SidebarTab icon={<FaHeart />} collapse={smallViewport} href="/followed">
         Followed
       </SidebarTab>
-      <SidebarTab icon={<FaBoxArchive />} collapse={smallViewport}>
+      <SidebarTab
+        icon={<FaBoxArchive />}
+        collapse={smallViewport}
+        href="/my-blogs"
+      >
         Your Blogs
       </SidebarTab>
-      <SidebarTab icon={<FaBookmark />} collapse={smallViewport}>
-        Bookmarked
+      <SidebarTab
+        icon={<FaBookmark />}
+        collapse={smallViewport}
+        href="/bookmarks"
+      >
+        Bookmarks
       </SidebarTab>
     </motion.div>
   );

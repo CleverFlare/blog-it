@@ -11,15 +11,7 @@ export default function Layout({}: LayoutProps) {
   return (
     <main className="flex h-screen bg-slate-100">
       <Sidebar open={sidebarOpen} />
-      <div className="flex flex-1 justify-end">
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => setSidebarOpen((old) => !old)}
-        >
-          <FaBurger />
-        </Button>
-      </div>
+      <div className="flex flex-1 justify-end"></div>
     </main>
   );
 }
