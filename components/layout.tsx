@@ -69,7 +69,7 @@ export default function Layout({ children }: LayoutProps) {
             </HoverCardContent>
           </HoverCard>
         </div>
-        <div>{children}</div>
+        <div className="p-5">{children}</div>
       </div>
     </main>
   );

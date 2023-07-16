@@ -1,6 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { ComponentProps } from "react";
+import { ComponentProps, useState } from "react";
 import Logo from "./logo";
 import { VariantProps, cva } from "class-variance-authority";
 import {
@@ -17,6 +17,18 @@ import { usePathname, useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 import { GoSignOut } from "react-icons/go";
 import { signOut } from "next-auth/react";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "./ui/alert-dialog";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const sidebarTabVariants = cva(
   "flex relative items-center box-border p-2 h-10 rounded-md aspect-square gap-6",
@@ -105,38 +117,83 @@ interface SignOutButtonProps extends ComponentProps<"button"> {
 }
 
 export function SignOutButton({ collapse }: SignOutButtonProps) {
+  const [loading, setLoading] = useState<boolean>(false);
   function handleSignout() {
-    signOut();
+    setLoading(true);
+    signOut().then(() => {
+      setLoading(false);
+    });
   }
   if (!collapse)
     return (
-      <TooltipProvider>
-        <Tooltip delayDuration={100}>
-          <TooltipTrigger asChild>
-            <Button
-              variant="outline"
-              size="icon"
-              className="font-bold"
-              onClick={handleSignout}
-            >
-              <GoSignOut />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent side="right">Sign Out</TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+      <AlertDialog>
+        <TooltipProvider>
+          <Tooltip delayDuration={100}>
+            <TooltipTrigger asChild>
+              <AlertDialogTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="font-bold"
+                  disabled={loading}
+                >
+                  {loading && (
+                    <AiOutlineLoading3Quarters className="animate-spin" />
+                  )}
+                  {!loading && <GoSignOut />}
+                </Button>
+              </AlertDialogTrigger>
+            </TooltipTrigger>
+            <TooltipContent side="right">Sign Out</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you wanna sign out right now? notice that you will
+              need to sign in again next time
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={handleSignout}>
+              Continue
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     );
   else
     return (
-      <Button
-        variant="outline"
-        size="default"
-        className="gap-4 w-full font-bold"
-        onClick={handleSignout}
-      >
-        <GoSignOut />
-        Sign Out
-      </Button>
+      <AlertDialog>
+        <AlertDialogTrigger asChild>
+          <Button
+            variant="outline"
+            size="default"
+            className="gap-4 w-full font-bold"
+          >
+            {loading && <AiOutlineLoading3Quarters className="animate-spin" />}
+            {!loading && <GoSignOut />}
+            Sign Out
+          </Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you wanna sign out right now? notice that you will
+              need to sign in again next time
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={handleSignout}>
+              Continue
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     );
 }
 
@@ -195,7 +252,7 @@ export default function Sidebar({
         >
           Bookmarks
         </SidebarTab>
-        <div className="flex flex-1 items-end w-full">
+        <div className="flex flex-1 justify-center items-end w-full">
           <SignOutButton collapse={smallViewport} />
         </div>
       </motion.div>
