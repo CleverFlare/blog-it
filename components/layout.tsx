@@ -24,7 +24,7 @@ export default function Layout({ children }: LayoutProps) {
         onClose={() => setSidebarOpen(false)}
       />
       <div className="flex flex-col flex-1">
-        <div className="flex justify-between items-center px-4 w-full bg-white h-[60px]">
+        <div className="flex justify-between items-center px-4 py-1 w-full bg-white">
           <div>
             {Boolean(smallViewport) && (
               <Button
@@ -69,7 +69,7 @@ export default function Layout({ children }: LayoutProps) {
             </HoverCardContent>
           </HoverCard>
         </div>
-        <div className="p-5">{children}</div>
+        <div className="overflow-y-auto p-5">{children}</div>
       </div>
     </main>
   );

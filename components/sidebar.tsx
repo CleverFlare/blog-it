@@ -172,6 +172,7 @@ export function SignOutButton({ collapse }: SignOutButtonProps) {
             variant="outline"
             size="default"
             className="gap-4 w-full font-bold"
+            disabled={loading}
           >
             {loading && <AiOutlineLoading3Quarters className="animate-spin" />}
             {!loading && <GoSignOut />}
@@ -214,7 +215,7 @@ export default function Sidebar({
       <motion.div
         initial={false}
         className={cn(
-          "box-border flex z-20 flex-col gap-2 items-center p-3 h-screen bg-white before:absolute before:-left-full before:top-0 before:w-full before:h-full before:bg-white",
+          "box-border flex z-20 flex-col gap-2 items-center p-3 bg-white h-[100dvh] before:absolute before:-left-full before:top-0 before:w-full before:h-full before:bg-white",
           smallViewport ? "fixed shadow-2xl w-[250px]" : "w-[70px]"
         )}
         animate={{
