@@ -13,7 +13,7 @@ export default async function Page() {
             <BlogCard
               key={index}
               thumbnail="/thumbnail.jpg"
-              href="#"
+              href="/something"
               user={{
                 name: "Muhammad Maher",
                 image:
