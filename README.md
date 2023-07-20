@@ -17,7 +17,7 @@ what is BlogIt? oh! sorry I forget to introduce you to it, it's simply a bloggin
 
 ## Roadmap
 
-- [-] Add workspace for the user when signing in
+- [x] Add workspace for the user when signing in
 - [ ] Fix the issue with github auth
 - [ ] Add block-based rich text editor using EditorJS
 - [ ] Add markdown support
